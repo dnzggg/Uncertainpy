@@ -94,3 +94,32 @@ class BAG:
 
     def __repr__(self) -> str:
         return f"BAG({self.path}) Arguments: {self.arguments} Attacks: {self.attacks} Supports: {self.supports}"
+
+    def to_dict(self):
+        return {
+            'arguments': {
+                n: a._to_shallow_dict()
+                for n, a in self.arguments.items()
+            },
+            'attacks': [
+                [a.attacker.name, a.attacked.name]
+                for a in self.attacks
+            ],
+            'supports': [
+                [s.supporter.name, s.supported.name]
+                for s in self.supports
+            ],
+        }
+
+    @classmethod
+    def from_dict(cls, d):
+        bag = cls()
+        arguments = {
+            n: Argument._from_shallow_dict(a)
+            for n, a in d['arguments'].items()
+        }
+        for attacker_name, attacked_name in d['attacks']:
+            bag.add_attack(arguments[attacker_name], arguments[attacked_name])
+        for supporter_name, supported_name in d['supports']:
+            bag.add_support(arguments[supporter_name], arguments[supported_name])
+        return bag

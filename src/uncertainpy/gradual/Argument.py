@@ -1,7 +1,4 @@
-from dataclasses import dataclass
 
-
-@dataclass
 class Argument:
     def __init__(self, name, arg, initial_weight, strength=None, attackers=None, supporters=None):
         self.name = name

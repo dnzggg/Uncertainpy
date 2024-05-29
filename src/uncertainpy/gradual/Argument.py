@@ -1,3 +1,4 @@
+
 class Argument:
     def __init__(self, name, arg, initial_weight, strength=None, attackers=None, supporters=None):
         self.name = name
@@ -49,20 +50,3 @@ class Argument:
         return (f"Argument: {self.arg}, initial weight: {self.initial_weight}, strength: {self.strength}, attackers:"
                 f"{self.attackers}, supporters: {self.supporters}")
         # return f"Argument(name={self.name}, weight={self.initial_weight}, strength={self.strength})"
-
-    def _to_shallow_dict(self):
-        return {
-            'name': self.name,
-            'argument': self.arg,
-            'initial_weight': self.initial_weight,
-            'strength': self.strength,
-        }
-
-    @classmethod
-    def _from_shallow_dict(cls, d):
-        return cls(
-            d['name'],
-            d['argument'],
-            d['initial_weight'],
-            strength=d['strength'],
-        )
